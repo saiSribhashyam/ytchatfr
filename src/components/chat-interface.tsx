@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { jsPDF } from "jspdf";
 import {
   Card,
   CardContent,
@@ -13,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
-  MenuIcon,
   SendIcon,
   HistoryIcon,
   ChevronRightIcon,
@@ -21,12 +19,10 @@ import {
   MoonIcon,
   SaveIcon,
   PlayIcon,
-  CopyPlusIcon,
   MessageCirclePlusIcon,
   RefreshCwIcon,
   Volume2Icon,
   StopCircleIcon,
-  DeleteIcon,
   Trash2Icon,
   XIcon,
   YoutubeIcon,
