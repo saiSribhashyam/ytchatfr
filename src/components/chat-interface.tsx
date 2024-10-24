@@ -183,15 +183,18 @@ export function ChatInterfaceComponent() {
     setShowSuggestedQuestions(false);
   };
 
+  const backlink='https://ytchatbackend.vercel.app'
+
   const startChat = async (urlToUse = url) => {
     setIsStartingChat(true);
     try {
-      const response = await fetch("https://ytchatbackend.vercel.app/startchat", {
+      const response = await fetch(backlink+"/startchat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ urlAddress: urlToUse }),
       });
       const data = await response.json();
+      console.log(data)
       setChatId(data.chatId);
       setVideoInfo(data.info);
       setMessages([
@@ -228,7 +231,7 @@ export function ChatInterfaceComponent() {
     setShowSuggestedQuestions(false);
   
     try {
-      const response = await fetch("https://ytchatbackend.vercel.app/chatroute", {
+      const response = await fetch(backlink+"/chatroute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chatId, message: messageToSend }),
@@ -260,7 +263,7 @@ export function ChatInterfaceComponent() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://ytchatbackend.vercel.app/chatroute", {
+      const response = await fetch(backlink+"/chatroute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chatId, message: lastUserMessage }),
