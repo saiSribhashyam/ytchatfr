@@ -186,7 +186,7 @@ export function ChatInterfaceComponent() {
   const startChat = async (urlToUse = url) => {
     setIsStartingChat(true);
     try {
-      const response = await fetch("https://ytchatbackend-h3efhzdhazg3h9b7.southindia-01.azurewebsites.net/startchat", {
+      const response = await fetch("https://ytchatbackend-p5q5i3dcp-saisribhashyams-projects.vercel.app/startchat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ urlAddress: urlToUse }),
@@ -228,7 +228,7 @@ export function ChatInterfaceComponent() {
     setShowSuggestedQuestions(false);
   
     try {
-      const response = await fetch("https://ytchatbackend-h3efhzdhazg3h9b7.southindia-01.azurewebsites.net/chatroute", {
+      const response = await fetch("https://ytchatbackend-p5q5i3dcp-saisribhashyams-projects.vercel.app/chatroute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chatId, message: messageToSend }),
@@ -260,7 +260,7 @@ export function ChatInterfaceComponent() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://ytchatbackend-h3efhzdhazg3h9b7.southindia-01.azurewebsites.net/chatroute", {
+      const response = await fetch("https://ytchatbackend-p5q5i3dcp-saisribhashyams-projects.vercel.app/chatroute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chatId, message: lastUserMessage }),
