@@ -184,10 +184,7 @@ export function ChatInterfaceComponent() {
   };
 
   const backlink='https://ytchatbackend-h3efhzdhazg3h9b7.southindia-01.azurewebsites.net'
-<<<<<<< HEAD
   // const backlink='http://localhost:8000'
-=======
->>>>>>> a2fdf178f320ea70abcf9453b8f972918d9f478f
 
   const startChat = async (urlToUse = url) => {
     setIsStartingChat(true);
