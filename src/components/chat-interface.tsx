@@ -34,6 +34,7 @@ import ReactMarkdown from "react-markdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { toast, useToast } from "@/hooks/use-toast";
+import Contact from "./contactme";
 
 interface ChatHistoryItem {
   chatId: string;
@@ -410,11 +411,13 @@ export function ChatInterfaceComponent() {
 
   return (
     <div className="flex flex-col md:flex-row h-screen w-full mx-auto bg-background text-foreground">
+      <Contact></Contact>
       <div
         className={`flex flex-col ${
           showHistory && !isMobile ? "md:w-3/4" : "w-full"
         } p-4 transition-all duration-300`}
       >
+        
         <header className="flex justify-between items-center mb-4 pb-2 border-b">
           <h1
             className="text-2xl md:text-3xl font-extrabold hover:cursor-pointer text-primary"
