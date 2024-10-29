@@ -44,7 +44,7 @@ interface ChatHistoryItem {
     description: string;
     id: string;
     author_thumbnail: string;
-    author: { name: string };
+    author: { name: string; author_thumbnail: string };
     thumbnail: string;
   } | null;
   url: string;
@@ -128,7 +128,7 @@ export function ChatInterfaceComponent() {
     description: string;
     id: string;
     author_thumbnail: string;
-    author: { name: string };
+    author: { name: string, author_thumbnail: string};
     thumbnail: string;
   } | null>(null);
   const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
@@ -183,7 +183,8 @@ export function ChatInterfaceComponent() {
     setShowSuggestedQuestions(false);
   };
 
-  const backlink='https://ytchatbackend.vercel.app'
+  const backlink='https://ytchatbackend-h3efhzdhazg3h9b7.southindia-01.azurewebsites.net'
+  // const backlink='http://localhost:8000'
 
   const startChat = async (urlToUse = url) => {
     setIsStartingChat(true);
@@ -581,7 +582,7 @@ export function ChatInterfaceComponent() {
                       </h2>
                       <div className="flex items-center space-x-4">
                         <img
-                          src={videoInfo?.author_thumbnail}
+                          src={videoInfo?.author.author_thumbnail}
                           alt="Author thumbnail"
                           className="h-8 w-8 md:h-10 md:w-10 rounded-full"
                         />
