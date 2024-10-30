@@ -631,7 +631,10 @@ export function ChatInterfaceComponent() {
                       </CardContent>
                     </Card>
                   </div>
-                  
+                  <div className="text-center text-sm text-muted-foreground">
+                    <p>Developed by <a className="font-bold" target="blank" href="https://sai-sribhashyam.netlify.app">Venkata Anantha Sai Sribhashyam</a></p>
+                    <p>Version 1.0.0 | © 2024 All Rights Reserved</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
