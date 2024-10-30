@@ -28,6 +28,8 @@ import {
   YoutubeIcon,
   BrainCircuitIcon,
   MessageSquareIcon,
+  LucideWifi,
+  LucideWifiOff
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import ReactMarkdown from "react-markdown";
@@ -35,6 +37,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { toast, useToast } from "@/hooks/use-toast";
 import Contact from "./contactme";
+
 
 interface ChatHistoryItem {
   chatId: string;
@@ -143,6 +146,9 @@ export function ChatInterfaceComponent() {
   const [isReading, setIsReading] = useState(false);
   const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isOnline, setIsOnline] = useState(true)
+  
+
   
 
   const suggestedQuestions = [
@@ -152,6 +158,64 @@ export function ChatInterfaceComponent() {
     "What are the most important points discussed?",
     "Can you provide a brief overview of the video content?",
   ];
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true)
+      toast({
+        title: "Back Online",
+        description: "Your internet connection has been restored",
+        variant: "default",
+        duration: 3000,
+        className: "bg-green-500 text-white",
+      })
+    }
+
+    const handleOffline = () => {
+      setIsOnline(false)
+      toast({
+        title: "Connection Lost",
+        description: "Please check your internet connection",
+        variant: "destructive",
+        //duration: null, // Keep showing until connection is restored
+        action: (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => window.location.reload()}
+            className="bg-white text-black hover:bg-gray-200"
+          >
+            Retry
+          </Button>
+        ),
+      })
+    }
+
+    // Check initial status
+    setIsOnline(navigator.onLine)
+
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [])
+
+  // Add network status indicator to header
+  const NetworkStatus = () => (
+    <div className={`flex items-center gap-2 ${isOnline ? 'text-green-500' : 'text-red-500'}`}>
+      {isOnline ? (
+        <LucideWifi className="h-4 w-4" />
+      ) : (
+        <LucideWifiOff className="h-4 w-4 animate-pulse" />
+      )}
+      <span className="text-sm hidden md:inline">
+        {isOnline ? 'Online' : 'Offline'}
+      </span>
+    </div>
+  )
 
   useEffect(() => {
     setMounted(true);
@@ -222,6 +286,17 @@ export function ChatInterfaceComponent() {
   };
 
   const sendMessage = async (messageToSend = inputMessage) => {
+    if (!isOnline) {
+      toast({
+        title: "No Internet Connection",
+        description: "Cannot send message while offline",
+        variant: "destructive",
+        duration: 3000,
+      })
+      return
+    }
+
+    
     if (!messageToSend.trim()) return;
   
     setMessages((prev) => [
@@ -409,7 +484,7 @@ export function ChatInterfaceComponent() {
     return null;
   }
 
-  return (
+  return (<>
     <div className="flex flex-col md:flex-row h-screen w-full mx-auto bg-background text-foreground">
       <Contact></Contact>
       <div
@@ -425,7 +500,9 @@ export function ChatInterfaceComponent() {
           >
             ▶ YT Chat
           </h1>
+          
           <div className="flex space-x-2">
+          <NetworkStatus />
             <Button
               variant="ghost"
               size={isMobile ? "icon" : "sm"}
@@ -554,10 +631,7 @@ export function ChatInterfaceComponent() {
                       </CardContent>
                     </Card>
                   </div>
-                  <div className="text-center text-sm text-muted-foreground">
-                    <p>Developed by <a className="font-bold" target="blank" href="https://sai-sribhashyam.netlify.app">Venkata Anantha Sai Sribhashyam</a></p>
-                    <p>Version 1.0.0 | © 2024 All Rights Reserved</p>
-                  </div>
+                  
                 </div>
               </CardContent>
             </Card>
@@ -809,7 +883,11 @@ export function ChatInterfaceComponent() {
             </p>
           )}
         </ScrollArea>
+        
       </div>
+      
     </div>
+    
+    </>
   );
 }
